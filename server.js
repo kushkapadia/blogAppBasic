@@ -20,24 +20,3 @@ app.set('view engine', 'ejs') //EJS (Embedded JavaScript Templating)
 
 app.listen(4000)
 console.log("listening...")
-
-
-app.get('/',  function(req, res){
-    res.render('dashboard')
-})
-
-// app.get('/create', function(req, res){
-//     res.render('create')
-// })
-
-// app.get('/create-blog', function(req, res){
-//     // console.log(req.body)
-//     res.send('get request !')
-// })
-
-// app.post('/create-blog', function(req, res){
-//     console.log(req.body)
-//     res.send('created !')
-// })
-
-// module.exports = app
