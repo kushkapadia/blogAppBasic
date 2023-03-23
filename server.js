@@ -1,6 +1,7 @@
 //Basically a file to configure Express.js
 // const router = require('./router')
 const express = require('express')
+const { MongoClient } = require("mongodb");
 
 const app = express()
 
@@ -18,5 +19,34 @@ app.set('view engine', 'ejs') //EJS (Embedded JavaScript Templating)
 //The template system we are using is ejs. There are many different options in javascript community
 //npm install ejs
 
-app.listen(4000)
-console.log("listening...")
+let db
+async function go() {
+  let client = new MongoClient("mongodb+srv://<username>:<password>@cluster0.6lvjr.mongodb.net/blogApp?retryWrites=true&w=majority")
+  await client.connect()
+  db = client.db()
+  app.listen(4000)
+  console.log("Connected")
+}
+go()
+
+
+app.get('/',  function(req, res){
+    res.render("dashboard")
+})
+
+app.get('/create', function(req, res){
+    res.render('create')
+})
+
+app.post('/create-blog', async function(req, res){
+  await db.collection("blogs").insertOne(req.body)
+    res.redirect('/')
+})
+
+
+
+
+
+
+
+// module.exports = app
